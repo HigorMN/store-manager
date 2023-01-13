@@ -5,7 +5,7 @@ const { productsModel } = require('../../../src/models');
 const { productsService: { findAll, findById } } = require('../../../src/services/');
 const { allProducts, invalidValue } = require('./mocks/products.service.mock');
 
-describe('Testes service de produtos', () => {
+describe('Testes de unidade do service de produtos', () => {
   describe('listagem de produtos', () => {
     it('lista todos os produtos', async () => {
       sinon.stub(productsModel, 'findAll').resolves(allProducts);
