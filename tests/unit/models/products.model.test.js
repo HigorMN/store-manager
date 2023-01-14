@@ -22,11 +22,11 @@ describe('Testes de unidade do model de produtos', () => {
   });
 
    it('Inserindo um produto', async () => {
-    sinon.stub(connection, 'execute').resolves([[products[0]]]);
+    sinon.stub(connection, 'execute').resolves([ { insertId: 1 }]);
 
-    const result = await productsModel.insert('ProdutoX');
+    const insertId = await productsModel.insert('ProdutoX');
 
-    expect(result).to.be.deep.equal(products[0]);
+    expect(insertId).to.equal(1);
   });
 
   afterEach(sinon.restore);
