@@ -16,7 +16,16 @@ const getProfuct = async (req, res) => {
   return res.status(200).json(message);
 };
 
+const newProduct = async (req, res) => {
+  const { name } = req.body;
+
+  const { message } = await productsService.insert(name);
+
+  return res.status(201).json(message);
+};
+
 module.exports = {
   listProducts,
   getProfuct,
+  newProduct,
 };
