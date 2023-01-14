@@ -63,5 +63,23 @@ describe('Testes de unidade do controller de produtos', () => {
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
   });
 
+  it('adicionando novo produto', async () => {
+    const res = {};
+    const req = {
+      body: { name: 'ProdutoX' },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+    sinon
+      .stub(productsService, 'insert')
+      .resolves({ type: null, message: productMock });
+    
+    await productsController.newProduct(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(productMock);
+  });
+
   afterEach(sinon.restore);
 });
