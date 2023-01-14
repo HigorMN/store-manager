@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const { productsModel } = require('../../../src/models');
-const { productsService: { findAll, findById } } = require('../../../src/services/');
+const { productsService: { findAll, findById, insert } } = require('../../../src/services/');
 const { allProducts, invalidValue } = require('./mocks/products.service.mock');
 
 describe('Testes de unidade do service de produtos', () => {
@@ -16,7 +16,7 @@ describe('Testes de unidade do service de produtos', () => {
     });
   }); -
 
-  describe('busca 1 produto', () => {
+  describe('Buscando 1 produto', () => {
     it('retorna o produto caso id exista', async () => {
       sinon.stub(productsModel, 'findById').resolves(allProducts[0]);
 
@@ -40,6 +40,18 @@ describe('Testes de unidade do service de produtos', () => {
 
       expect(result.type).to.equal('INVALID_VALUE');
       expect(result.message).to.equal('"id" must be a number');
+    });
+  });
+
+  describe('Inserindo 1 produto', () => {
+    it('retorna o produto adcionado', async () => {
+      sinon.stub(productsModel, 'insert').resolves(1);
+      sinon.stub(productsModel, 'findById').resolves(allProducts[0]);
+
+      const result = await insert('Martelo de Thor');
+
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(allProducts[0]);
     });
   });
 
