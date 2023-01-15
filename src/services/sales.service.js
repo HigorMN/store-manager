@@ -1,4 +1,5 @@
 const { salesModel, productsModel } = require('../models');
+const { validateId } = require('./validations/validationsInputValues');
 
 const findIdExist = async (arraySales) => {
   const products = await Promise.all(
@@ -25,6 +26,26 @@ const insert = async (arraySales) => {
   return { type: null, message: result };
 };
 
+const findAll = async () => {
+  const result = await salesModel.findAll();
+
+  return { type: null, message: result };
+};
+
+const findById = async (id) => {
+  const error = validateId(id);
+  if (error.type) return error;
+
+  const result = await salesModel.findById(id);
+  console.log(result);
+
+  if (result.length === 0) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   insert,
+  findAll,
+  findById,
 };
