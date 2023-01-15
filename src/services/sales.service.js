@@ -37,7 +37,6 @@ const findById = async (id) => {
   if (error.type) return error;
 
   const result = await salesModel.findById(id);
-  console.log(result);
 
   if (result.length === 0) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
 
