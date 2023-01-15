@@ -3,7 +3,7 @@ const sinon = require('sinon');
 
 const { salesModel, productsModel } = require('../../../src/models');
 
-const { salesService } = require('../../../src/services/');
+const { salesService } = require('../../../src/services');
 const { salesMock, insertMock } = require('./mocks/sales.service.mock')
 describe('Testes de unidade do service de sales', () => {
   it('Inserindo sales em caso de sucesso', async () => {
