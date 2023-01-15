@@ -5,7 +5,8 @@ const insert = async (arraySales) => {
 
   const [[{ saleId }]] = await connection.execute(
     'SELECT MAX(sale_id) AS saleId FROM sales_products',
-);
+  );
+  
   const id = +saleId + 1;
 
   const sales = await Promise.all(arraySales.map(async (e) => {
