@@ -43,8 +43,19 @@ const findById = async (id) => {
   return { type: null, message: result };
 };
 
+const deleteById = async (id) => {
+  const { type, message } = await findById(id);
+
+  if (type) return { type, message };
+
+  await salesModel.deleteById(id);
+
+  return { type: null, message: null };
+};
+
 module.exports = {
   insert,
   findAll,
   findById,
+  deleteById,
 };
