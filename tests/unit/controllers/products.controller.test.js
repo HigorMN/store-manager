@@ -140,7 +140,7 @@ describe('Testes de unidade do controller de produtos', () => {
     expect(res.json).to.have.been.calledWith();
   });
 
-    it('Removendo produto pelo id inexistete', async () => {
+  it('Removendo produto pelo id inexistete', async () => {
     const res = {};
     const req = {
       params: { id: 9999 },
