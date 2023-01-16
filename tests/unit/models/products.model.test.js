@@ -27,7 +27,15 @@ describe('Testes de unidade do model de produtos', () => {
     const insertId = await productsModel.insert('ProdutoX');
 
     expect(insertId).to.equal(1);
-  });
+   });
+  
+  it('Atualizando produto pelo id', async () => {
+    sinon.stub(connection, 'execute').resolves([]);
+
+    const result = await productsModel.updateById('Martelo', 1);
+
+    expect(result).to.be.deep.equal(result);
+  })
 
   afterEach(sinon.restore);
 });
