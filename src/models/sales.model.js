@@ -32,8 +32,15 @@ const findById = async (id) => {
   return camelize(result);
 };
 
+const deleteById = async (id) => {
+  const query = `DELETE s, sP FROM sales AS s 
+  JOIN sales_products AS sP ON s.id = sP.sale_id WHERE s.id = ?`;
+  connection.execute(query, [id]);
+};
+
 module.exports = {
   insert,
   findAll,
   findById,
+  deleteById,
 };
