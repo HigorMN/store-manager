@@ -101,7 +101,7 @@ describe('Testes de unidade do controller de produtos', () => {
     expect(res.json).to.have.been.calledWith(updateByIdMock);
   })
 
-    it('Atulizar produto pelo id inexistete', async () => {
+  it('Atulizar produto pelo id inexistete', async () => {
     const res = {};
     const req = {
       body: { name: updateByIdMock.name },
@@ -116,6 +116,44 @@ describe('Testes de unidade do controller de produtos', () => {
       .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
     
     await productsController.updateProductById(req, res);
+    
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+  })
+  
+  it('Removendo produto pelo id valido', async () => {
+    const res = {};
+    const req = {
+      params: { id: updateByIdMock.id },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'deleteById')
+      .resolves({ type: null, message: null });
+    
+    await productsController.deleteById(req, res);
+    
+    expect(res.status).to.have.been.calledWith(204);
+    expect(res.json).to.have.been.calledWith();
+  });
+
+    it('Removendo produto pelo id inexistete', async () => {
+    const res = {};
+    const req = {
+      params: { id: 9999 },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(productsService, 'deleteById')
+      .resolves({ type: 'PRODUCT_NOT_FOUND', message: 'Product not found' });
+    
+    await productsController.deleteById(req, res);
     
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
