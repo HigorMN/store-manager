@@ -30,5 +30,11 @@ describe('Teste de unidade de Sales', () => {
     expect(result).to.be.deep.equal(findByIdMock);
   })
 
+  it('Deletando pelo id', async () => {
+    sinon.stub(connection, 'execute').resolves({});
+
+    await salesModel.deleteById(2);
+  })
+
   afterEach(sinon.restore);
 });

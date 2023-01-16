@@ -88,5 +88,44 @@ describe('Testes de unidade do controller sales', () => {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith({ message: 'Product not found' });    
   });
+
+  it('Removendo produto pelo id valido', async () => {
+    const res = {};
+    const req = {
+      params: { id: 1 },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(salesService, 'deleteById')
+      .resolves({ type: null, message: null });
+    
+    await salesController.deleteById(req, res);
+    
+    expect(res.status).to.have.been.calledWith(204);
+    expect(res.json).to.have.been.calledWith();
+  });
+
+  it('Removendo venda pelo id inexistete', async () => {
+    const res = {};
+    const req = {
+      params: { id: 9999 },
+    };
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns();
+
+    sinon
+      .stub(salesService, 'deleteById')
+      .resolves({ type: 'SALE_NOT_FOUND', message: 'Sale not found' });
+    
+    await salesController.deleteById(req, res);
+    
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
+  })
+
   afterEach(sinon.restore);
 });

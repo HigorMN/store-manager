@@ -58,5 +58,24 @@ describe('Testes de unidade do service de sales', () => {
     expect(result.message).to.deep.equal('"id" must be a number');
   })
 
+  it('removendo vendas com id valido', async () => {
+    sinon.stub(salesModel, 'deleteById').resolves({});
+
+    const result = await salesService.deleteById(1);
+
+    expect(result.type).to.equal(null);
+    expect(result.message).to.deep.equal(null);
+  });
+
+  it('removendo vendas com id invalido', async () => {
+    sinon.stub(salesService, 'findById')
+      .resolves({ type: 'SALE_NOT_FOUND', message: 'Sale not found' });
+    
+    const result = await salesService.deleteById(999);
+
+    expect(result.type).to.equal('SALE_NOT_FOUND');
+    expect(result.message).to.deep.equal('Sale not found');
+  });
+
   afterEach(function () { sinon.restore() });
 });
