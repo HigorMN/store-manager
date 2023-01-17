@@ -44,10 +44,17 @@ const deleteById = async (id) => {
   return { type: null, message: null };
 };
 
+const search = async (q) => {
+  const result = await productsModel.search(q);
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
   updateById,
   deleteById,
+  search,
 };
