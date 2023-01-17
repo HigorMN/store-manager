@@ -35,7 +35,22 @@ const findById = async (id) => {
 const deleteById = async (id) => {
   const query = `DELETE s, sP FROM sales AS s 
   JOIN sales_products AS sP ON s.id = sP.sale_id WHERE s.id = ?`;
-  connection.execute(query, [id]);
+  await connection.execute(query, [id]);
+};
+
+const updateById = async (saleId, arraySales) => {
+  const query1 = 'DELETE sP FROM sales_products AS sP WHERE sale_id = ?';
+  const query2 = 'INSERT INTO sales_products (sale_id, product_id, quantity) VALUE (?, ?, ?)';
+
+  await connection.execute(query1, [saleId]);
+
+  const sales = await Promise.all(arraySales.map(async (e) => {
+    const { productId, quantity } = e;
+    await connection.execute(query2, [saleId, productId, quantity]);
+      return e;
+  }));
+
+  return { saleId, itemsUpdated: sales };
 };
 
 module.exports = {
@@ -43,4 +58,5 @@ module.exports = {
   findAll,
   findById,
   deleteById,
+  updateById,
 };

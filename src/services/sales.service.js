@@ -53,9 +53,23 @@ const deleteById = async (id) => {
   return { type: null, message: null };
 };
 
+const updateById = async (id, arraySales) => {
+  const error = await findIdExist(arraySales);
+  if (error.type) return error;
+
+  const { type, message } = await findById(id);
+
+  if (type) return { type, message };
+
+  const result = await salesModel.updateById(id, arraySales);
+
+  return { type: null, message: result };
+};
+
 module.exports = {
   insert,
   findAll,
   findById,
   deleteById,
+  updateById,
 };
