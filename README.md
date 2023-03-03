@@ -8,11 +8,13 @@ Back-end: `Node`, `Express`, `Javascript`, `MySQL2`, `Docker`
 
 <h2>🐋 Rodando no Docker</h2>
 
-Para executar o serviço Node, utilize o comando `docker-compose up -d`
+1. Clone o repositório em sua máquina local.
 
-Esse serviço ira inicializar um container chamado `trybers_and_dragons`. A partir daqui você pode rodar o container `trybers_and_dragons` via CLI ou abri-lo no VS Code. Use o comando `docker exec -it trybers_and_dragons bash`.
+2. Certifique-se de ter o docker-compose instalado.
 
-Ele te dará acesso ao terminal interativo do container criado pelo compose, que está rodando em segundo plano. Instale as dependências "Caso existam" com `npm install`
+3. Execute o comando `docker-compose up -d`.
+
+4. Acesse o endereço http://localhost:3000 para acessar a API.
 
 ⚠️ **Atenção** ⚠️ Caso opte por utilizar o Docker, TODOS os comandos disponíveis no package.json (npm start, npm test, npm run dev, ...) devem ser executados DENTRO do container, ou seja, no terminal que aparece após a execução do comando docker exec citado acima.
 
@@ -44,10 +46,10 @@ Unsupported config option for services.node: 'platform'
   POST /login
 ```
 
-| Parâmetro   | Tipo       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `email`     | `string`   | **Obrigatório no body**. Email cadastrado no banco de dados |
-| `password`  | `string`   | **Obrigatório no body**. Password cadastrado no banco de dados |
+| Parâmetro  | Tipo     | Descrição                                                      |
+| :--------- | :------- | :------------------------------------------------------------- |
+| `email`    | `string` | **Obrigatório no body**. Email cadastrado no banco de dados    |
+| `password` | `string` | **Obrigatório no body**. Password cadastrado no banco de dados |
 
 **Cadastrar um produto**
 
@@ -55,9 +57,9 @@ Unsupported config option for services.node: 'platform'
   POST /products
 ```
 
-| Parâmetro    | Tipo     | Descrição                                   |
-| :----------- | :------- | :------------------------------------------ |
-| `name`       | `string` | **Obrigatório no body**. Name para cadastrar o produto |
+| Parâmetro | Tipo     | Descrição                                              |
+| :-------- | :------- | :----------------------------------------------------- |
+| `name`    | `string` | **Obrigatório no body**. Name para cadastrar o produto |
 
 **Cadastrar uma venda**
 
@@ -65,9 +67,9 @@ Unsupported config option for services.node: 'platform'
   POST /sales
 ```
 
-| Parâmetro                | Tipo     | Descrição                                   |
-| :----------------------- | :------- | :------------------------------------------ |
-| `[{productId, quantity}]`| `array`  | **Obrigatório no body**. Um array com varios objetos de ProductId e Quantity para cadastrar as vendas |
+| Parâmetro                 | Tipo    | Descrição                                                                                             |
+| :------------------------ | :------ | :---------------------------------------------------------------------------------------------------- |
+| `[{productId, quantity}]` | `array` | **Obrigatório no body**. Um array com varios objetos de ProductId e Quantity para cadastrar as vendas |
 
 **Pegar produtos**
 
